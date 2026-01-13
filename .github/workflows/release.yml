@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+          SCOOP_GITHUB_TOKEN: ${{ secrets.SCOOP_GITHUB_TOKEN }}
+
+  update-homebrew:
+    needs: goreleaser
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.ref, '-') }}  # Skip pre-releases
+    steps:
+      - name: Update Homebrew Tap
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+          script: |
+            const tag = context.ref.replace('refs/tags/', '');
+            console.log(`New release: ${tag}`);
+
+  update-scoop:
+    needs: goreleaser
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.ref, '-') }}  # Skip pre-releases
+    steps:
+      - name: Update Scoop Bucket
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.SCOOP_GITHUB_TOKEN }}
+          script: |
+            const tag = context.ref.replace('refs/tags/', '');
+            console.log(`New release: ${tag}`);
