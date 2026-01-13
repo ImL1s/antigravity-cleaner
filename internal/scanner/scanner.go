@@ -27,7 +27,7 @@ func getHomeDir() string {
 // getDirSize calculates the total size of a directory
 func getDirSize(path string) int64 {
 	var size int64
-	filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
+	_ = filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}
@@ -154,7 +154,7 @@ func ScanFlutter(basePath string) []CleanableItem {
 	}
 
 	// Find Flutter projects by looking for pubspec.yaml
-	filepath.Walk(basePath, func(path string, info os.FileInfo, err error) error {
+	_ = filepath.Walk(basePath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}
