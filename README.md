@@ -134,20 +134,40 @@ agc simulator
 
 ### Google Antigravity IDE
 
+**All Platforms:**
 | Path | Description | Safety |
 |------|-------------|:------:|
 | `~/.gemini/antigravity/browser_recordings/` | Session replay screenshots | ✓ |
 | `~/.gemini/antigravity/conversations/` | Conversation history | ⚠ |
 | `~/.gemini/antigravity/brain/` | AI memory cache | ⚠ |
 | `~/.gemini/antigravity/implicit/` | Implicit data cache | ✓ |
+
+**macOS:**
+| Path | Description | Safety |
+|------|-------------|:------:|
 | `~/Library/Application Support/Antigravity/CachedData/` | JS/WASM cache | ✓ |
 | `~/Library/Application Support/Antigravity/Code Cache/` | Code cache | ✓ |
-| `~/Library/Application Support/Antigravity/_extensions-disabled/` | Disabled extensions | ✓ |
+| `~/Library/Application Support/Antigravity/User/_extensions-disabled/` | Disabled extensions | ✓ |
 | `~/Library/Application Support/Antigravity/DawnWebGPUCache/` | WebGPU cache | ✓ |
 | `~/Library/Application Support/Antigravity/DawnGraphiteCache/` | Graphite cache | ✓ |
+| `~/.antigravity/extensions/` | Old extension versions | ✓ |
+
+**Windows:**
+| Path | Description | Safety |
+|------|-------------|:------:|
+| `%APPDATA%\Antigravity\CachedData\` | Cached data | ✓ |
+| `%APPDATA%\Antigravity\Code Cache\` | Code cache | ✓ |
+| `%LOCALAPPDATA%\Antigravity\CachedData\` | Local cached data | ✓ |
+
+**Linux:**
+| Path | Description | Safety |
+|------|-------------|:------:|
+| `~/.config/Antigravity/CachedData/` | Cached data | ✓ |
+| `~/.config/Antigravity/Code Cache/` | Code cache | ✓ |
 
 ### Flutter / Dart
 
+**All Platforms:**
 | Path | Description | Safety |
 |------|-------------|:------:|
 | `<project>/build/` | Build artifacts | ✓ |
@@ -166,6 +186,7 @@ agc simulator
 
 ### Android Studio
 
+**All Platforms:**
 | Path | Description | Safety |
 |------|-------------|:------:|
 | `~/.gradle/caches/` | Gradle cache | ✓ |
@@ -175,12 +196,26 @@ agc simulator
 
 ### VS Code & Variants (Cursor, etc.)
 
+**macOS:**
 | Path | Description | Safety |
 |------|-------------|:------:|
-| `CachedData/` | Cached data | ✓ |
-| `Code Cache/` | Code cache | ✓ |
-| `CachedExtensions/` | Extension cache | ✓ |
-| `CachedExtensionVSIXs/` | Extension packages | ✓ |
+| `~/Library/Application Support/Code/CachedData/` | Cached data | ✓ |
+| `~/Library/Application Support/Code/Code Cache/` | Code cache | ✓ |
+| `~/Library/Application Support/Cursor/CachedData/` | Cursor cached data | ✓ |
+
+**Windows:**
+| Path | Description | Safety |
+|------|-------------|:------:|
+| `%APPDATA%\Code\CachedData\` | Cached data | ✓ |
+| `%APPDATA%\Code\Code Cache\` | Code cache | ✓ |
+| `%APPDATA%\Cursor\CachedData\` | Cursor cached data | ✓ |
+
+**Linux:**
+| Path | Description | Safety |
+|------|-------------|:------:|
+| `~/.config/Code/CachedData/` | Cached data | ✓ |
+| `~/.config/Code/Code Cache/` | Code cache | ✓ |
+| `~/.config/Cursor/CachedData/` | Cursor cached data | ✓ |
 
 ## Safety Levels
 
