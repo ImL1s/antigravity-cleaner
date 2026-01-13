@@ -1,0 +1,97 @@
+# GoReleaser configuration for antigravity-cleaner
+# https://goreleaser.com
+
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: agc
+    main: ./cmd/agc
+    binary: agc
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+
+archives:
+  - id: default
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+
+brews:
+  - name: agc
+    repository:
+      owner: iml1s
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: "https://github.com/iml1s/antigravity-cleaner"
+    description: "Clean up IDE caches and build artifacts (Antigravity, Flutter, Xcode, Android)"
+    license: "MIT"
+    install: |
+      bin.install "agc"
+    test: |
+      system "#{bin}/agc", "--version"
+
+scoops:
+  - name: agc
+    repository:
+      owner: iml1s
+      name: scoop-bucket
+      token: "{{ .Env.SCOOP_GITHUB_TOKEN }}"
+    homepage: "https://github.com/iml1s/antigravity-cleaner"
+    description: "Clean up IDE caches and build artifacts (Antigravity, Flutter, Xcode, Android)"
+    license: MIT
+
+nfpms:
+  - id: packages
+    package_name: agc
+    vendor: iml1s
+    homepage: "https://github.com/iml1s/antigravity-cleaner"
+    maintainer: "iml1s"
+    description: "Clean up IDE caches and build artifacts"
+    license: MIT
+    formats:
+      - deb
+      - rpm
+
+release:
+  github:
+    owner: iml1s
+    name: antigravity-cleaner
+  draft: false
+  prerelease: auto
