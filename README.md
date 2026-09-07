@@ -269,6 +269,12 @@ goreleaser release --clean
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+---
+
+## Support
+
+If this project saved you some time, you can [buy me a coffee](https://buymeacoffee.com/iml1s).
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
